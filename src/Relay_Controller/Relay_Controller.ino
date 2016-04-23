@@ -1,5 +1,7 @@
 int ledPin = 13;
 int stateLED;           // state to track last set value of LED
+char *messageTokens[24]; // holds the maximum size of relays
+boolean isDebug = true;
 
 void setup() {
 
@@ -11,32 +13,39 @@ void setup() {
   digitalWrite(ledPin, LOW);   // set value to LOW (off) to match stateLED=0
 }
 
-void split(String message) {
+void splitMessage(String message) {
+  // copy message to char buffer
   char buf[100];
   strncpy(buf, message.c_str(), sizeof(buf));
 
-  int size = 10;
+  // get all the tokens
   int i = 0;
+  int tokenCount = 0;
   char *p = strtok (buf, "|");
-  char *array[size];
 
   while (p != NULL)
   {
-    array[i++] = p;
+    messageTokens[i] = p;
+    i++;
+    tokenCount = i;
     p = strtok (NULL, "|");
   }
 
-  for (i = 0; i < size; ++i) {
-    if (array[i] == NULL) {
+  // dump to serial for debug
+  printDebug("*** begin tokens ***");
+  for (i = 0; i < tokenCount; ++i) {
+    if (messageTokens[i] == NULL) {
       break;
     }
-    printDebug("*** token ***");
-    printDebug(array[i]);
+    printDebug(messageTokens[i]);
   }
+  printDebug("*** end tokens ***");
 }
 
 void printDebug(String text) {
-  Serial.println(text);
+  if (isDebug) {
+    Serial.println(text);
+  }
 }
 
 void loop() {
@@ -53,6 +62,6 @@ void processSerial() {
 
   printDebug(serialText);
 
-  split(serialText);
+  splitMessage(serialText);
 }
 
