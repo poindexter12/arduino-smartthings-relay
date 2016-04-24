@@ -1,45 +1,54 @@
-int ledPin = 13;
-int stateLED;           // state to track last set value of LED
-char *messageTokens[24]; // holds the maximum size of relays
-boolean isDebug = true;
+boolean isDebug = true;       // flag for debug messages
+
+boolean isActiveHigh = false; //set to true if using "active high" relay, set to false if using "active low" relay
+int relayOn = HIGH;           // holds the on state
+int relayOff = LOW;           // holds the off state
 
 void setup() {
 
   // setup debug serial port
   Serial.begin(9600);
 
-  // setup hardware pins
-  pinMode(ledPin, OUTPUT);     // define PIN_LED as an output
-  digitalWrite(ledPin, LOW);   // set value to LOW (off) to match stateLED=0
+  //set up relays to control irrigation valves
+  if (!isActiveHigh) {
+    relayOn = LOW;
+    relayOff = HIGH;
+  }
 }
 
-void splitMessage(String message) {
+void processMessage(String message) {
   // copy message to char buffer
   char buf[100];
   strncpy(buf, message.c_str(), sizeof(buf));
 
   // get all the tokens
   int i = 0;
-  int tokenCount = 0;
-  char *p = strtok (buf, "|");
+  char *relayMessage = strtok (buf, "|");
 
-  while (p != NULL)
-  {
-    messageTokens[i] = p;
-    i++;
-    tokenCount = i;
-    p = strtok (NULL, "|");
-  }
-
-  // dump to serial for debug
   printDebug("*** begin tokens ***");
-  for (i = 0; i < tokenCount; ++i) {
-    if (messageTokens[i] == NULL) {
-      break;
-    }
-    printDebug(messageTokens[i]);
+  while (relayMessage != NULL)
+  {
+    processRelayMessage(relayMessage);
+    relayMessage = strtok (NULL, "|");
   }
   printDebug("*** end tokens ***");
+}
+
+void processRelayMessage(char* relayMessage){
+    printDebug(relayMessage);
+
+    char *stationNumberToken = strtok(relayMessage, ",");
+    char *stationStateToken = strtok(NULL, ",");
+
+    printDebug(stationNumberToken);
+    printDebug(stationStateToken);
+}
+
+void SetStationState(int station, int state){
+  if (state == 1){
+    digitalWrite(station, relayOn);
+  }
+  digitalWrite(station, relayOff);
 }
 
 void printDebug(String text) {
@@ -50,7 +59,6 @@ void printDebug(String text) {
 
 void loop() {
   processSerial();
-  // smartthing.run();
 }
 
 void processSerial() {
@@ -62,6 +70,6 @@ void processSerial() {
 
   printDebug(serialText);
 
-  splitMessage(serialText);
+  processMessage(serialText);
 }
 
