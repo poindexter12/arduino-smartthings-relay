@@ -1,3 +1,10 @@
+#include <SmartThings.h>
+#define PIN_THING_RX    3
+#define PIN_THING_TX    2
+
+SmartThingsCallout_t messageCallout;    // call out function forward decalaration
+SmartThings smartthing(PIN_THING_RX, PIN_THING_TX, messageCallout);  // constructor
+
 boolean isDebug = true;       // flag for debug messages
 
 boolean isActiveHigh = false; //set to true if using "active high" relay, set to false if using "active low" relay
@@ -14,9 +21,15 @@ void setup() {
     relayOn = LOW;
     relayOff = HIGH;
   }
+
+  smartthing.shieldSetLED(0, 0, 1); // set to blue to start
 }
 
 void processMessage(String message) {
+  smartthing.shieldSetLED(0, 0, 1);
+
+  printDebug(message);
+
   // copy message to char buffer
   char buf[100];
   strncpy(buf, message.c_str(), sizeof(buf));
@@ -42,23 +55,29 @@ void processMessage(String message) {
     processRelayMessage(relayMessages[i]);
   }
   printDebug("*** end tokens ***");
+  smartthing.shieldSetLED(0, 0, 1);
 }
 
 void processRelayMessage(char* relayMessage) {
   char buf[100];
   strncpy(buf, relayMessage, 18);
-  
+
   char *stationNumberToken = strtok(buf, ",");
   char *stationStateToken = strtok(NULL, ",");
 
-  setStationState((int)stationNumberToken, (int)stationStateToken);
+  setStationState(atoi(stationNumberToken), atoi(stationStateToken));
 }
 
 void setStationState(int station, int state) {
   if (state == 1) {
+    smartthing.shieldSetLED(0, 1, 0);
     digitalWrite(station, relayOn);
   }
-  digitalWrite(station, relayOff);
+  else {
+    smartthing.shieldSetLED(1, 0, 0);
+    digitalWrite(station, relayOff);
+  }
+  delay(500); // give the relay a chance to kick on
 }
 
 void printDebug(String text) {
@@ -69,6 +88,7 @@ void printDebug(String text) {
 
 void loop() {
   processSerial();
+  smartthing.run();
 }
 
 void processSerial() {
@@ -78,8 +98,13 @@ void processSerial() {
 
   String serialText = Serial.readString();
 
-  printDebug(serialText);
-
   processMessage(serialText);
+}
+
+//process incoming messages from SmartThings hub
+void messageCallout(String message) {
+  printDebug("*** begin smarthings message ***");
+  processMessage(message);
+  printDebug("*** end smarthings message ***");
 }
 
