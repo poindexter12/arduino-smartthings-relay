@@ -23,29 +23,39 @@ void processMessage(String message) {
 
   // get all the tokens
   int i = 0;
+  char *relayMessages[24];
   char *relayMessage = strtok (buf, "|");
 
-  printDebug("*** begin tokens ***");
   while (relayMessage != NULL)
   {
-    processRelayMessage(relayMessage);
+    relayMessages[i++] = relayMessage;
     relayMessage = strtok (NULL, "|");
+  }
+  relayMessages[i++] = '\0';  // set flag to signal end of info
+
+  printDebug("*** begin tokens ***");
+  for (i = 0; i < 24; i++) {
+    if (relayMessages[i] == '\0') {
+      break;
+    }
+    printDebug(relayMessages[i]);
+    processRelayMessage(relayMessages[i]);
   }
   printDebug("*** end tokens ***");
 }
 
-void processRelayMessage(char* relayMessage){
-    printDebug(relayMessage);
+void processRelayMessage(char* relayMessage) {
+  char buf[100];
+  strncpy(buf, relayMessage, 18);
+  
+  char *stationNumberToken = strtok(buf, ",");
+  char *stationStateToken = strtok(NULL, ",");
 
-    char *stationNumberToken = strtok(relayMessage, ",");
-    char *stationStateToken = strtok(NULL, ",");
-
-    printDebug(stationNumberToken);
-    printDebug(stationStateToken);
+  setStationState((int)stationNumberToken, (int)stationStateToken);
 }
 
-void SetStationState(int station, int state){
-  if (state == 1){
+void setStationState(int station, int state) {
+  if (state == 1) {
     digitalWrite(station, relayOn);
   }
   digitalWrite(station, relayOff);
