@@ -1,6 +1,8 @@
 #include <SmartThings.h>
-#define PIN_THING_RX    3
-#define PIN_THING_TX    2
+#include <string.h>
+#define PIN_THING_RX      3
+#define PIN_THING_TX      2
+#define MAX_ARDUINO_PTRS 24
 
 SmartThingsCallout_t messageCallout;    // call out function forward decalaration
 SmartThings smartthing(PIN_THING_RX, PIN_THING_TX, messageCallout);  // constructor
@@ -30,13 +32,18 @@ void processMessage(String message) {
 
   printDebug(message);
 
-  // copy message to char buffer
-  char buf[100];
-  strncpy(buf, message.c_str(), sizeof(buf));
+  // copy message to char buffer (duplicate string)
+  char *buf = NULL;
+  buf = strdup(message.c_str());
+  // Use in case previous line doesn't work
+  /*
+  buf = (char *)malloc( strlen(message.c_str() + 1 );
+  strcpy(buf, message.c_str());
+  */
 
   // get all the tokens
   int i = 0;
-  char *relayMessages[24];
+  char *relayMessages[MAX_ARDUINO_PTRS];
   char *relayMessage = strtok (buf, "|");
 
   while (relayMessage != NULL)
@@ -47,8 +54,9 @@ void processMessage(String message) {
   relayMessages[i++] = '\0';  // set flag to signal end of info
 
   printDebug("*** begin tokens ***");
-  for (i = 0; i < 24; i++) {
-    if (relayMessages[i] == '\0') {
+  for (i = 0; i < MAX_ARDUINO_PTRS; i++) {
+    if (relayMessages[i] == '\0') 
+    {
       break;
     }
     printDebug(relayMessages[i]);
@@ -56,16 +64,26 @@ void processMessage(String message) {
   }
   printDebug("*** end tokens ***");
   smartthing.shieldSetLED(0, 0, 1);
+  
+  // Free assigned pointers
+  free(buf);
+  free(relayMessage)
+  for (i = 0; i < MAX_ARDUINO_PTRS; i++)
+  {
+    free(relayMessages[i]);
+  }
 }
 
 void processRelayMessage(char* relayMessage) {
-  char buf[100];
-  strncpy(buf, relayMessage, 18);
+  char *buf = NULL;
+  buf = strdup(relayMessage);
 
   char *stationNumberToken = strtok(buf, ",");
   char *stationStateToken = strtok(NULL, ",");
 
   setStationState(atoi(stationNumberToken), atoi(stationStateToken));
+  
+  free(buf);
 }
 
 void setStationState(int station, int state) {
