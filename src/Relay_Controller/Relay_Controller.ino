@@ -33,13 +33,8 @@ void processMessage(String message) {
   printDebug(message);
 
   // copy message to char buffer (duplicate string)
-  char *buf = NULL;
-  buf = strdup(message.c_str());
-  // Use in case previous line doesn't work
-  /*
-  buf = (char *)malloc( strlen(message.c_str() + 1 );
-  strcpy(buf, message.c_str());
-  */
+  char buf[100];
+  strncpy(buf, message.c_str(), sizeof(buf));
 
   // get all the tokens
   int i = 0;
@@ -55,7 +50,7 @@ void processMessage(String message) {
 
   printDebug("*** begin tokens ***");
   for (i = 0; i < MAX_ARDUINO_PTRS; i++) {
-    if (relayMessages[i] == '\0') 
+    if (relayMessages[i] == '\0')
     {
       break;
     }
@@ -64,26 +59,20 @@ void processMessage(String message) {
   }
   printDebug("*** end tokens ***");
   smartthing.shieldSetLED(0, 0, 1);
-  
+
   // Free assigned pointers
-  free(buf);
-  free(relayMessage)
-  for (i = 0; i < MAX_ARDUINO_PTRS; i++)
-  {
-    free(relayMessages[i]);
-  }
+
 }
 
 void processRelayMessage(char* relayMessage) {
-  char *buf = NULL;
-  buf = strdup(relayMessage);
+  char buf[100];
+  strncpy(buf, relayMessage, MAX_ARDUINO_PTRS);
 
   char *stationNumberToken = strtok(buf, ",");
   char *stationStateToken = strtok(NULL, ",");
 
   setStationState(atoi(stationNumberToken), atoi(stationStateToken));
-  
-  free(buf);
+free(buf);
 }
 
 void setStationState(int station, int state) {
