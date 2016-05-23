@@ -3,6 +3,7 @@
 #define PIN_THING_RX      3
 #define PIN_THING_TX      2
 #define MAX_ARDUINO_PTRS 24
+#define PIN_OFFSET        3
 
 SmartThingsCallout_t messageCallout;    // call out function forward decalaration
 SmartThings smartthing(PIN_THING_RX, PIN_THING_TX, messageCallout);  // constructor
@@ -60,8 +61,6 @@ void processMessage(String message) {
   printDebug("*** end tokens ***");
   smartthing.shieldSetLED(0, 0, 1);
 
-  // Free assigned pointers
-
 }
 
 void processRelayMessage(char* relayMessage) {
@@ -72,17 +71,16 @@ void processRelayMessage(char* relayMessage) {
   char *stationStateToken = strtok(NULL, ",");
 
   setStationState(atoi(stationNumberToken), atoi(stationStateToken));
-free(buf);
 }
 
 void setStationState(int station, int state) {
   if (state == 1) {
     smartthing.shieldSetLED(0, 1, 0);
-    digitalWrite(station, relayOn);
+    digitalWrite(station + PIN_OFFSET, relayOn);
   }
   else {
     smartthing.shieldSetLED(1, 0, 0);
-    digitalWrite(station, relayOff);
+    digitalWrite(station + PIN_OFFSET, relayOff);
   }
   delay(500); // give the relay a chance to kick on
 }
@@ -114,4 +112,3 @@ void messageCallout(String message) {
   processMessage(message);
   printDebug("*** end smarthings message ***");
 }
-
