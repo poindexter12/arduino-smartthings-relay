@@ -36,6 +36,16 @@ void setup() {
   pinMode(6 + PIN_OFFSET, OUTPUT); 
   pinMode(7 + PIN_OFFSET, OUTPUT); 
   pinMode(8 + PIN_OFFSET, OUTPUT); 
+
+  // close all relays
+  setStationState(1, 0);
+  setStationState(2, 0);
+  setStationState(3, 0);
+  setStationState(4, 0);
+  setStationState(5, 0);
+  setStationState(6, 0);
+  setStationState(7, 0);
+  setStationState(8, 0);
 }
 
 void processMessage(String message) {
@@ -92,7 +102,7 @@ void setStationState(int station, int state) {
     smartthing.shieldSetLED(1, 0, 0);
     digitalWrite(station + PIN_OFFSET, relayOff);
   }
-  delay(500); // give the relay a chance to kick on
+  delay(100); // give the relay a chance to kick on
 }
 
 void printDebug(String text) {
