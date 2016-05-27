@@ -26,6 +26,16 @@ void setup() {
   }
 
   smartthing.shieldSetLED(0, 0, 1); // set to blue to start
+
+  // set all pins to output
+  pinMode(1 + PIN_OFFSET, OUTPUT); 
+  pinMode(2 + PIN_OFFSET, OUTPUT); 
+  pinMode(3 + PIN_OFFSET, OUTPUT); 
+  pinMode(4 + PIN_OFFSET, OUTPUT); 
+  pinMode(5 + PIN_OFFSET, OUTPUT); 
+  pinMode(6 + PIN_OFFSET, OUTPUT); 
+  pinMode(7 + PIN_OFFSET, OUTPUT); 
+  pinMode(8 + PIN_OFFSET, OUTPUT); 
 }
 
 void processMessage(String message) {
