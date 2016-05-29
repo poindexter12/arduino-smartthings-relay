@@ -102,7 +102,6 @@ void setStationState(int station, int state) {
     smartthing.shieldSetLED(1, 0, 0);
     digitalWrite(station + PIN_OFFSET, relayOff);
   }
-  delay(100); // give the relay a chance to kick on
 }
 
 void printDebug(String text) {
