@@ -71,7 +71,7 @@ metadata {
 			state "on", label:'Zone 8 ${name}', action:"zone8off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
 		main "status"
-		details(["status", "alloff", "zone1", "zone2"])
+		details(["status", "alloff", "zone1", "zone2", "zone3", "zone4", "zone5", "zone6", "zone7", "zone8"])
 	}
 }
 
