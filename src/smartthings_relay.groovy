@@ -179,6 +179,12 @@ def zone8off(){
 def alloff(){
   sendEvent(name: "zone1", value: "off", displayed: true, isStateChange: true, isPhysical: true);
   sendEvent(name: "zone2", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+  sendEvent(name: "zone3", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+  sendEvent(name: "zone4", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+  sendEvent(name: "zone5", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+  sendEvent(name: "zone6", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+  sendEvent(name: "zone7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+  sendEvent(name: "zone8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "1,0|2,0|3,0|4,0|5,0|6,0|7,0|8,0").format()
 }
