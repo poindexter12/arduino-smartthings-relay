@@ -187,12 +187,42 @@ def setActivityState(){
   def zone1state = device.currentValue("zone1");
   if (zone1state == "on"){
   	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-      return;
+    return;
   }
   def zone2state = device.currentValue("zone2");
   if (zone2state == "on"){
   	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-      return;
+    return;
+  }
+  def zone3state = device.currentValue("zone3");
+  if (zone3state == "on"){
+  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+    return;
+  }
+  def zone4state = device.currentValue("zone4");
+  if (zone4state == "on"){
+  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+    return;
+  }
+  def zone5state = device.currentValue("zone5");
+  if (zone5state == "on"){
+  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+    return;
+  }
+  def zone6state = device.currentValue("zone6");
+  if (zone6state == "on"){
+  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+    return;
+  }
+  def zone7state = device.currentValue("zone7");
+  if (zone7state == "on"){
+  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+    return;
+  }
+  def zone8state = device.currentValue("zone8");
+  if (zone8state == "on"){
+  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+    return;
   }
   sendEvent(name: "status", value: "inactive", displayed: true, isStateChange: true, isPhysical: false);
 }
