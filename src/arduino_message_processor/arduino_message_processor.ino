@@ -39,52 +39,31 @@ void setup() {
   }
   // turn all the relays off
   allOff();
-  // do the smartthing...
-  smartthing.run();
 }
 
 void processMessage(String message) {
-  message.trim();           //Ignore the periodic ' ' sent
-  if (message.length() == 0) //from the ThingShield
+  //Ignore the periodic ' ' sent
+  message.trim();
+  if (message.length() == 0)
   {
     return;
   }
-
-  Serial.println(text);
-  
+  // dump the message if we're debugging
+  Serial.println(message);
   // look for all off first
   if (message == "alloff"){
     allOff();
   }
-
-  // copy message to char buffer (duplicate string)
-  char buf[100];
-  strncpy(buf, message.c_str(), sizeof(buf));
-
-  // get all the tokens
-  int i = 0;
-  char *relayMessages[MAX_ARDUINO_PTRS];
-  char *relayMessage = strtok (buf, "|");
-
-  while (relayMessage != NULL)
-  {
-    relayMessages[i++] = relayMessage;
-    relayMessage = strtok (NULL, "|");
-  }
-  relayMessages[i++] = '\0';  // set flag to signal end of info
-
-  printDebug("*** begin tokens ***");
-  for (i = 0; i < MAX_ARDUINO_PTRS; i++) {
-    if (relayMessages[i] == '\0')
-    {
-      break;
-    }
-    printDebug(relayMessages[i]);
-    processRelayMessage(relayMessages[i]);
-  }
-  printDebug("*** end tokens ***");
-  smartthing.shieldSetLED(0, 0, 1);
-
+  // declare variables for message
+  int relay = 0;
+  String state = "off";
+  // find space
+  int splitIndex = message.indexOf(' ');
+  // get message parts
+  relay = message.substring(0, splitIndex).toInt();
+  state = message.substring(splitIndex + 1);
+  // set the state
+  setRelayState(relay, state);
 }
 
 void allOff(){
@@ -99,18 +78,18 @@ void allOff(){
 }
 
 
-void setStationState(int station, String state) {
+void setRelayState(int relay, String state) {
   if (state == "on") {
     // set shield to green
     smartthing.shieldSetLED(0, 1, 0);
     // opening relay
-    digitalWrite(relayPins[station - 1], relayOn);
+    digitalWrite(relayPins[relay - 1], relayOn);
   }
   else {
     // set shield to red
     smartthing.shieldSetLED(1, 0, 0);
     // closing relay
-    digitalWrite(relayPins[station - 1], relayOff);
+    digitalWrite(relayPins[relay - 1], relayOff);
   }
   // back to blue
   smartthing.shieldSetLED(0, 0, 1);
@@ -119,6 +98,8 @@ void setStationState(int station, String state) {
 // arduino loop, stuff going on here
 void loop() {
   processSerial();
+  // do the smartthing...
+  smartthing.run();
 }
 
 // messages from serial

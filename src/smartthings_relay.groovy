@@ -2,7 +2,7 @@ metadata {
 	definition (name: "8 Channel Relay", namespace: "poindexter12", author: "Joe Seymour") {
 		capability "Actuator"
 		attribute "zone1", "string"
-    command "alloff"
+    	command "alloff"
 		command "zone1on"
 		command "zone1off"
 		command "zone2on"
@@ -83,97 +83,97 @@ def parse(String description) {
 def zone1on(){
   sendEvent(name: "zone1", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "1,1").format()
+	zigbee.smartShield(text: "1 on").format()
 }
 
 def zone1off(){
   sendEvent(name: "zone1", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "1,0").format()
+	zigbee.smartShield(text: "1 off").format()
 }
 
 def zone2on(){
   sendEvent(name: "zone2", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "2,1").format()
+	zigbee.smartShield(text: "2 on").format()
 }
 
 def zone2off(){
   sendEvent(name: "zone2", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "2,0").format()
+	zigbee.smartShield(text: "2 off").format()
 }
 
 def zone3on(){
   sendEvent(name: "zone3", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "3,1").format()
+	zigbee.smartShield(text: "3 on").format()
 }
 
 def zone3off(){
   sendEvent(name: "zone3", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "3,0").format()
+	zigbee.smartShield(text: "3 off").format()
 }
 
 def zone4on(){
   sendEvent(name: "zone4", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "4,1").format()
+	zigbee.smartShield(text: "4 on").format()
 }
 
 def zone4off(){
   sendEvent(name: "zone4", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "4,0").format()
+	zigbee.smartShield(text: "4 off").format()
 }
 
 def zone5on(){
   sendEvent(name: "zone5", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "5,1").format()
+	zigbee.smartShield(text: "5 on").format()
 }
 
 def zone5off(){
   sendEvent(name: "zone5", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "5,0").format()
+	zigbee.smartShield(text: "5 off").format()
 }
 
 def zone6on(){
   sendEvent(name: "zone6", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "6,1").format()
+	zigbee.smartShield(text: "6 on").format()
 }
 
 def zone6off(){
   sendEvent(name: "zone6", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "6,0").format()
+	zigbee.smartShield(text: "6 off").format()
 }
 
 def zone7on(){
   sendEvent(name: "zone7", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "7,1").format()
+	zigbee.smartShield(text: "7 on").format()
 }
 
 def zone7off(){
   sendEvent(name: "zone7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "7,0").format()
+	zigbee.smartShield(text: "7 off").format()
 }
 
 def zone8on(){
   sendEvent(name: "zone8", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "8,1").format()
+	zigbee.smartShield(text: "8 on").format()
 }
 
 def zone8off(){
   sendEvent(name: "zone8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "8,0").format()
+	zigbee.smartShield(text: "8 off").format()
 }
 
 def alloff(){
@@ -186,7 +186,7 @@ def alloff(){
   sendEvent(name: "zone7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
   sendEvent(name: "zone8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
-	zigbee.smartShield(text: "1,0|2,0|3,0|4,0|5,0|6,0|7,0|8,0").format()
+	zigbee.smartShield(text: "alloff").format()
 }
 
 def setActivityState(){
