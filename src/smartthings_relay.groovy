@@ -1,33 +1,38 @@
 metadata {
 	definition (name: "8 Channel Relay", namespace: "poindexter12", author: "Joe Seymour") {
 		capability "Actuator"
-		attribute "zone1", "string"
-    	command "alloff"
-		command "zone1on"
-		command "zone1off"
-		command "zone2on"
-		command "zone2off"
-		command "zone3on"
-		command "zone3off"
-		command "zone4on"
-		command "zone4off"
-		command "zone5on"
-		command "zone5off"
-		command "zone6on"
-		command "zone6off"
-		command "zone7on"
-		command "zone7off"
-		command "zone8on"
-		command "zone8off"
+		capability "Switch"
+
+		attribute "relay1", "string"
+		attribute "relay2", "string"
+		attribute "relay3", "string"
+		attribute "relay4", "string"
+		attribute "relay5", "string"
+		attribute "relay6", "string"
+		attribute "relay7", "string"
+		attribute "relay8", "string"
+
+		command "alloff"
+		command "relay1on"
+		command "relay1off"
+		command "relay2on"
+		command "relay2off"
+		command "relay3on"
+		command "relay3off"
+		command "relay4on"
+		command "relay4off"
+		command "relay5on"
+		command "relay5off"
+		command "relay6on"
+		command "relay6off"
+		command "relay7on"
+		command "relay7off"
+		command "relay8on"
+		command "relay8off"
 	}
 
 	// simulator metadata
 	simulator {
-		status "on":  "command: 2003, payload: FF"
-		status "off": "command: 2003, payload: 00"
-
-		reply "2001FF,delay 100,2502": "command: 2503, payload: FF"
-		reply "200100,delay 100,2502": "command: 2503, payload: 00"
 	}
 
 	tiles(scale: 1) {
@@ -35,200 +40,212 @@ metadata {
 			state "inactive", label:' ${name} ', icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
 			state "active", label:' ${name} ', icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-        standardTile("alloff", "device.alloff", decoration: "flat") {
+		standardTile("alloff", "device.alloff", decoration: "flat") {
 			state "none", label: "all off", action:"alloff", icon:"st.switches.switch.off", backgroundColor:"#ffffff"
-        }
-		standardTile("zone1", "device.zone1", inactiveLabel: true, decoration: "flat") {
-			state "off", label:'Zone 1 ${name}', action:"zone1on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'Zone 1 ${name}', action:"zone1off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-		standardTile("zone2", "device.zone2", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'Zone 2 ${name}', action:"zone2on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'Zone 2 ${name}', action:"zone2off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+		standardTile("relay1", "device.relay1", inactiveLabel: true, decoration: "flat") {
+			state "off", label:'relay 1 ${name}', action:"relay1on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
+			state "on", label:'relay 1 ${name}', action:"relay1off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-		standardTile("zone3", "device.zone3", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'Zone 3 ${name}', action:"zone3on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'Zone 3 ${name}', action:"zone3off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+		standardTile("relay2", "device.relay2", inactiveLabel: false, decoration: "flat") {
+			state "off", label:'relay 2 ${name}', action:"relay2on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
+			state "on", label:'relay 2 ${name}', action:"relay2off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-		standardTile("zone4", "device.zone4", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'Zone 4 ${name}', action:"zone4on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'Zone 4 ${name}', action:"zone4off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+		standardTile("relay3", "device.relay3", inactiveLabel: false, decoration: "flat") {
+			state "off", label:'relay 3 ${name}', action:"relay3on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
+			state "on", label:'relay 3 ${name}', action:"relay3off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-		standardTile("zone5", "device.zone5", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'Zone 5 ${name}', action:"zone5on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'Zone 5 ${name}', action:"zone5off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+		standardTile("relay4", "device.relay4", inactiveLabel: false, decoration: "flat") {
+			state "off", label:'relay 4 ${name}', action:"relay4on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
+			state "on", label:'relay 4 ${name}', action:"relay4off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-		standardTile("zone6", "device.zone6", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'Zone 6 ${name}', action:"zone6on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'Zone 6 ${name}', action:"zone6off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+		standardTile("relay5", "device.relay5", inactiveLabel: false, decoration: "flat") {
+			state "off", label:'relay 5 ${name}', action:"relay5on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
+			state "on", label:'relay 5 ${name}', action:"relay5off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-		standardTile("zone7", "device.zone7", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'Zone 7 ${name}', action:"zone7on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'Zone 7 ${name}', action:"zone7off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+		standardTile("relay6", "device.relay6", inactiveLabel: false, decoration: "flat") {
+			state "off", label:'relay 6 ${name}', action:"relay6on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
+			state "on", label:'relay 6 ${name}', action:"relay6off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-		standardTile("zone8", "device.zone8", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'Zone 8 ${name}', action:"zone8on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'Zone 8 ${name}', action:"zone8off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+		standardTile("relay7", "device.relay7", inactiveLabel: false, decoration: "flat") {
+			state "off", label:'relay 7 ${name}', action:"relay7on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
+			state "on", label:'relay 7 ${name}', action:"relay7off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+		}
+		standardTile("relay8", "device.relay8", inactiveLabel: false, decoration: "flat") {
+			state "off", label:'relay 8 ${name}', action:"relay8on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
+			state "on", label:'relay 8 ${name}', action:"relay8off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
 		main "status"
-		details(["status", "alloff", "zone1", "zone2", "zone3", "zone4", "zone5", "zone6", "zone7", "zone8"])
+		details(["status", "alloff", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8"])
 	}
 }
 
 // Parse incoming device messages to generate events
 def parse(String description) {
-	// TBD, if anything
+	def msg = zigbee.parse(description)?.text
+	log.debug "Parse got '${msg}'"
+
+	def parts = msg.split(" ")
+	def name  = parts.length > 0 ? parts[0].trim() : null
+	def value = parts.length > 1 ? parts[1].trim() : null
+
+	name = value != "ping" ? name : null
+
+	def result = createEvent(name: name, value: value, displayed: true, isStateChange: true)
+	log.debug result
+
+	return null;
 }
 
-def zone1on(){
-  sendEvent(name: "zone1", value: "on", displayed: true, isStateChange: true, isPhysical: true);
+def relay1on(){
+	sendEvent(name: "relay1", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "1 on").format()
 }
 
-def zone1off(){
-  sendEvent(name: "zone1", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+def relay1off(){
+	sendEvent(name: "relay1", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "1 off").format()
 }
 
-def zone2on(){
-  sendEvent(name: "zone2", value: "on", displayed: true, isStateChange: true, isPhysical: true);
+def relay2on(){
+	sendEvent(name: "relay2", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "2 on").format()
 }
 
-def zone2off(){
-  sendEvent(name: "zone2", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+def relay2off(){
+	sendEvent(name: "relay2", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "2 off").format()
 }
 
-def zone3on(){
-  sendEvent(name: "zone3", value: "on", displayed: true, isStateChange: true, isPhysical: true);
+def relay3on(){
+	sendEvent(name: "relay3", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "3 on").format()
 }
 
-def zone3off(){
-  sendEvent(name: "zone3", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+def relay3off(){
+	sendEvent(name: "relay3", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "3 off").format()
 }
 
-def zone4on(){
-  sendEvent(name: "zone4", value: "on", displayed: true, isStateChange: true, isPhysical: true);
+def relay4on(){
+	sendEvent(name: "relay4", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "4 on").format()
 }
 
-def zone4off(){
-  sendEvent(name: "zone4", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+def relay4off(){
+	sendEvent(name: "relay4", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "4 off").format()
 }
 
-def zone5on(){
-  sendEvent(name: "zone5", value: "on", displayed: true, isStateChange: true, isPhysical: true);
+def relay5on(){
+	sendEvent(name: "relay5", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "5 on").format()
 }
 
-def zone5off(){
-  sendEvent(name: "zone5", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+def relay5off(){
+	sendEvent(name: "relay5", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "5 off").format()
 }
 
-def zone6on(){
-  sendEvent(name: "zone6", value: "on", displayed: true, isStateChange: true, isPhysical: true);
+def relay6on(){
+	sendEvent(name: "relay6", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "6 on").format()
 }
 
-def zone6off(){
-  sendEvent(name: "zone6", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+def relay6off(){
+	sendEvent(name: "relay6", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "6 off").format()
 }
 
-def zone7on(){
-  sendEvent(name: "zone7", value: "on", displayed: true, isStateChange: true, isPhysical: true);
+def relay7on(){
+	sendEvent(name: "relay7", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "7 on").format()
 }
 
-def zone7off(){
-  sendEvent(name: "zone7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+def relay7off(){
+	sendEvent(name: "relay7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "7 off").format()
 }
 
-def zone8on(){
-  sendEvent(name: "zone8", value: "on", displayed: true, isStateChange: true, isPhysical: true);
+def relay8on(){
+	sendEvent(name: "relay8", value: "on", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "8 on").format()
 }
 
-def zone8off(){
-  sendEvent(name: "zone8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+def relay8off(){
+	sendEvent(name: "relay8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "8 off").format()
 }
 
 def alloff(){
-  sendEvent(name: "zone1", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-  sendEvent(name: "zone2", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-  sendEvent(name: "zone3", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-  sendEvent(name: "zone4", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-  sendEvent(name: "zone5", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-  sendEvent(name: "zone6", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-  sendEvent(name: "zone7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-  sendEvent(name: "zone8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+	sendEvent(name: "relay1", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+	sendEvent(name: "relay2", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+	sendEvent(name: "relay3", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+	sendEvent(name: "relay4", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+	sendEvent(name: "relay5", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+	sendEvent(name: "relay6", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+	sendEvent(name: "relay7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
+	sendEvent(name: "relay8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
 	setActivityState();
 	zigbee.smartShield(text: "alloff").format()
 }
 
 def setActivityState(){
-  def zone1state = device.currentValue("zone1");
-  if (zone1state == "on"){
-  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-    return;
-  }
-  def zone2state = device.currentValue("zone2");
-  if (zone2state == "on"){
-  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-    return;
-  }
-  def zone3state = device.currentValue("zone3");
-  if (zone3state == "on"){
-  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-    return;
-  }
-  def zone4state = device.currentValue("zone4");
-  if (zone4state == "on"){
-  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-    return;
-  }
-  def zone5state = device.currentValue("zone5");
-  if (zone5state == "on"){
-  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-    return;
-  }
-  def zone6state = device.currentValue("zone6");
-  if (zone6state == "on"){
-  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-    return;
-  }
-  def zone7state = device.currentValue("zone7");
-  if (zone7state == "on"){
-  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-    return;
-  }
-  def zone8state = device.currentValue("zone8");
-  if (zone8state == "on"){
-  	sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
-    return;
-  }
-  sendEvent(name: "status", value: "inactive", displayed: true, isStateChange: true, isPhysical: false);
+	def relay1state = device.currentValue("relay1");
+	if (relay1state == "on"){
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		return;
+	}
+	def relay2state = device.currentValue("relay2");
+	if (relay2state == "on"){
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		return;
+	}
+	def relay3state = device.currentValue("relay3");
+	if (relay3state == "on"){
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		return;
+	}
+	def relay4state = device.currentValue("relay4");
+	if (relay4state == "on"){
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		return;
+	}
+	def relay5state = device.currentValue("relay5");
+	if (relay5state == "on"){
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		return;
+	}
+	def relay6state = device.currentValue("relay6");
+	if (relay6state == "on"){
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		return;
+	}
+	def relay7state = device.currentValue("relay7");
+	if (relay7state == "on"){
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		return;
+	}
+	def relay8state = device.currentValue("relay8");
+	if (relay8state == "on"){
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		return;
+	}
+	sendEvent(name: "status", value: "inactive", displayed: true, isStateChange: true, isPhysical: false);
 }

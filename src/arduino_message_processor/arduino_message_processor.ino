@@ -55,12 +55,12 @@ void processMessage(String message) {
     allOff();
   }
   // declare variables for message
-  int relay = 0;
+  String relay;
   String state = "off";
   // find space
   int splitIndex = message.indexOf(' ');
   // get message parts
-  relay = message.substring(0, splitIndex).toInt();
+  relay = message.substring(0, splitIndex);
   state = message.substring(splitIndex + 1);
   // set the state
   setRelayState(relay, state);
@@ -78,21 +78,27 @@ void allOff(){
 }
 
 
-void setRelayState(int relay, String state) {
+void setRelayState(String relay, String state) {
+  int relayNumber = relay.toInt();
   if (state == "on") {
     // set shield to green
     smartthing.shieldSetLED(0, 1, 0);
     // opening relay
-    digitalWrite(relayPins[relay - 1], relayOn);
+    digitalWrite(relayPins[relayNumber - 1], relayOn);
   }
   else {
     // set shield to red
     smartthing.shieldSetLED(1, 0, 0);
     // closing relay
-    digitalWrite(relayPins[relay - 1], relayOff);
+    digitalWrite(relayPins[relayNumber - 1], relayOff);
   }
   // back to blue
   smartthing.shieldSetLED(0, 0, 1);
+  // build message to send
+  String message = "relay" + relay + " " + state;
+  Serial.println("Sending message: " + message);
+  // send the message
+  smartthing.send(message);
 }
 
 // arduino loop, stuff going on here
