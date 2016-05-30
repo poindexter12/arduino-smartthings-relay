@@ -1,57 +1,61 @@
 #include <SmartThings.h>
 #include <string.h>
-#define PIN_THING_RX      3
+
+#define PIN_O_RESERVED               0  //reserved by ThingShield for Serial communications OR USB Serial Monitor
+#define PIN_1_RESERVED               1  //reserved by ThingShield for Serial communications OR USB Serial Monitor
+#define PIN_6_RESERVED               6  //reserved by ThingShield (possible future use?)
+
 #define PIN_THING_TX      2
-#define MAX_ARDUINO_PTRS 24
-#define PIN_OFFSET        3
+#define PIN_THING_RX      3
+
+#define PIN_RELAY1        4
+#define PIN_RELAY2        5
+#define PIN_RELAY3        7
+#define PIN_RELAY4        8
+#define PIN_RELAY5        9
+#define PIN_RELAY6        10
+#define PIN_RELAY7        11
+#define PIN_RELAY8        12
+
+#define MAX_RELAYS        8
+
+byte relayPins[MAX_RELAYS] = { PIN_RELAY1, PIN_RELAY2, PIN_RELAY3, PIN_RELAY4, PIN_RELAY5, PIN_RELAY6, PIN_RELAY7, PIN_RELAY8 };
 
 SmartThingsCallout_t messageCallout;    // call out function forward decalaration
 SmartThings smartthing(PIN_THING_RX, PIN_THING_TX, messageCallout);  // constructor
 
-boolean isDebug = true;       // flag for debug messages
-
-boolean isActiveHigh = false; //set to true if using "active high" relay, set to false if using "active low" relay
-int relayOn = HIGH;           // holds the on state
-int relayOff = LOW;           // holds the off state
+int relayOn = LOW;             // holds the on state
+int relayOff = HIGH;           // holds the off state
 
 void setup() {
-
   // setup debug serial port
   Serial.begin(9600);
-
-  //set up relays to control irrigation valves
-  if (!isActiveHigh) {
-    relayOn = LOW;
-    relayOff = HIGH;
+  // set to blue to start
+  smartthing.shieldSetLED(0, 0, 1);
+  // loop through relays
+  for (int i = 0; i < MAX_RELAYS; i++){
+    // set all pins to output
+    pinMode(relayPins[i], OUTPUT);
   }
-
-  smartthing.shieldSetLED(0, 0, 1); // set to blue to start
-
-  // set all pins to output
-  pinMode(1 + PIN_OFFSET, OUTPUT); 
-  pinMode(2 + PIN_OFFSET, OUTPUT); 
-  pinMode(3 + PIN_OFFSET, OUTPUT); 
-  pinMode(4 + PIN_OFFSET, OUTPUT); 
-  pinMode(5 + PIN_OFFSET, OUTPUT); 
-  pinMode(6 + PIN_OFFSET, OUTPUT); 
-  pinMode(7 + PIN_OFFSET, OUTPUT); 
-  pinMode(8 + PIN_OFFSET, OUTPUT); 
-
-  // close all relays
-  setStationState(1, 0);
-  setStationState(2, 0);
-  setStationState(3, 0);
-  setStationState(4, 0);
-  setStationState(5, 0);
-  setStationState(6, 0);
-  setStationState(7, 0);
-  setStationState(8, 0);
+  // turn all the relays off
+  allOff();
+  // do the smartthing...
+  smartthing.run();
 }
 
 void processMessage(String message) {
-  smartthing.shieldSetLED(0, 0, 1);
+  message.trim();           //Ignore the periodic ' ' sent
+  if (message.length() == 0) //from the ThingShield
+  {
+    return;
+  }
 
-  printDebug(message);
+  Serial.println(text);
+  
+  // look for all off first
+  if (message == "alloff"){
+    allOff();
+  }
 
   // copy message to char buffer (duplicate string)
   char buf[100];
@@ -83,51 +87,49 @@ void processMessage(String message) {
 
 }
 
-void processRelayMessage(char* relayMessage) {
-  char buf[100];
-  strncpy(buf, relayMessage, MAX_ARDUINO_PTRS);
-
-  char *stationNumberToken = strtok(buf, ",");
-  char *stationStateToken = strtok(NULL, ",");
-
-  setStationState(atoi(stationNumberToken), atoi(stationStateToken));
+void allOff(){
+  smartthing.shieldSetLED(1, 0, 0);
+  // loop through relays
+  for (int i = 0; i < MAX_RELAYS; i++) {
+    // close relay
+    digitalWrite(relayPins[i], relayOff);
+  }
+  // set to blue to start
+  smartthing.shieldSetLED(0, 0, 1);
 }
 
-void setStationState(int station, int state) {
-  if (state == 1) {
+
+void setStationState(int station, String state) {
+  if (state == "on") {
+    // set shield to green
     smartthing.shieldSetLED(0, 1, 0);
-    digitalWrite(station + PIN_OFFSET, relayOn);
+    // opening relay
+    digitalWrite(relayPins[station - 1], relayOn);
   }
   else {
+    // set shield to red
     smartthing.shieldSetLED(1, 0, 0);
-    digitalWrite(station + PIN_OFFSET, relayOff);
+    // closing relay
+    digitalWrite(relayPins[station - 1], relayOff);
   }
+  // back to blue
+  smartthing.shieldSetLED(0, 0, 1);
 }
 
-void printDebug(String text) {
-  if (isDebug) {
-    Serial.println(text);
-  }
-}
-
+// arduino loop, stuff going on here
 void loop() {
   processSerial();
-  smartthing.run();
 }
 
+// messages from serial
 void processSerial() {
   if (Serial.available() == 0) {
     return;
   }
-
-  String serialText = Serial.readString();
-
-  processMessage(serialText);
+  processMessage(Serial.readString());
 }
 
-//process incoming messages from SmartThings hub
+//messages from SmartThings hub
 void messageCallout(String message) {
-  printDebug("*** begin smarthings message ***");
   processMessage(message);
-  printDebug("*** end smarthings message ***");
 }
