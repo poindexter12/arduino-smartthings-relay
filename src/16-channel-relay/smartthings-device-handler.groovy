@@ -38,7 +38,7 @@ metadata {
 	}
 
 	tiles(scale: 1) {
-		standardTile("status", "device.status", width: 3, height: 1) {
+		standardTile("status", "device.status", width: 2, height: 1) {
 			state "inactive", label:' ${name} ', icon:"st.shields.shields.arduino", backgroundColor:"#ffffff"
 			state "active", label:' ${name} ', icon:"st.shields.shields.arduino", backgroundColor:"#79b821"
 		}
@@ -87,7 +87,7 @@ metadata {
 			state "on", label:'relay 8 ${name}', action:"relay8off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		main "status"
-		details(["status", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8", "reset"])
+		details(["status", "reset", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8"])
 	}
 }
 
