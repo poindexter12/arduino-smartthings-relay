@@ -39,55 +39,55 @@ metadata {
 
 	tiles(scale: 1) {
 		standardTile("status", "device.status", width: 2, height: 1) {
-			state "inactive", label:' ${name} ', icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "active", label:' ${name} ', icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+			state "inactive", label:' ${name} ', icon:"st.shields.shields.arduino", backgroundColor:"#ffffff"
+			state "active", label:' ${name} ', icon:"st.shields.shields.arduino", backgroundColor:"#79b821"
 		}
 		standardTile("reset", "device.reset", decoration: "flat") {
-			state "done", label: "reset", action:"reseteverything", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"resetting"
-			state "resetting", label:'resetting...', action:"reseteverything", icon:"st.switches.switch.off", backgroundColor:"#a9a9a9"
+			state "done", label: "reset", action:"reseteverything", icon:"st.secondary.refresh", backgroundColor:"#ffffff", nextState:"resetting"
+			state "resetting", label:'resetting...', action:"reseteverything", icon:"st.secondary.refresh", backgroundColor:"#a9a9a9"
 		}
 		standardTile("relay1", "device.relay1", inactiveLabel: true, decoration: "flat") {
-			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
-			state "off", label:'relay 1 ${name}', action:"relay1on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
-			state "on", label:'relay 1 ${name}', action:"relay1off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
+			state "off", label:'relay 1 ${name}', action:"relay1on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
+			state "on", label:'relay 1 ${name}', action:"relay1off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay2", "device.relay2", inactiveLabel: false, decoration: "flat") {
-			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
-			state "off", label:'relay 2 ${name}', action:"relay2on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
-			state "on", label:'relay 2 ${name}', action:"relay2off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
+			state "off", label:'relay 2 ${name}', action:"relay2on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
+			state "on", label:'relay 2 ${name}', action:"relay2off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay3", "device.relay3", inactiveLabel: false, decoration: "flat") {
-			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
-			state "off", label:'relay 3 ${name}', action:"relay3on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
-			state "on", label:'relay 3 ${name}', action:"relay3off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
+			state "off", label:'relay 3 ${name}', action:"relay3on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
+			state "on", label:'relay 3 ${name}', action:"relay3off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay4", "device.relay4", inactiveLabel: false, decoration: "flat") {
-			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
-			state "off", label:'relay 4 ${name}', action:"relay4on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
-			state "on", label:'relay 4 ${name}', action:"relay4off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
+			state "off", label:'relay 4 ${name}', action:"relay4on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
+			state "on", label:'relay 4 ${name}', action:"relay4off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay5", "device.relay5", inactiveLabel: false, decoration: "flat") {
-			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
-			state "off", label:'relay 5 ${name}', action:"relay5on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
-			state "on", label:'relay 5 ${name}', action:"relay5off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
+			state "off", label:'relay 5 ${name}', action:"relay5on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
+			state "on", label:'relay 5 ${name}', action:"relay5off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay6", "device.relay6", inactiveLabel: false, decoration: "flat") {
-			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
-			state "off", label:'relay 6 ${name}', action:"relay6on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
-			state "on", label:'relay 6 ${name}', action:"relay6off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
+			state "off", label:'relay 6 ${name}', action:"relay6on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
+			state "on", label:'relay 6 ${name}', action:"relay6off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay7", "device.relay7", inactiveLabel: false, decoration: "flat") {
-			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
-			state "off", label:'relay 7 ${name}', action:"relay7on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
-			state "on", label:'relay 7 ${name}', action:"relay7off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
+			state "off", label:'relay 7 ${name}', action:"relay7on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
+			state "on", label:'relay 7 ${name}', action:"relay7off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay8", "device.relay8", inactiveLabel: false, decoration: "flat") {
-			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
-			state "off", label:'relay 8 ${name}', action:"relay8on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
-			state "on", label:'relay 8 ${name}', action:"relay8off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
+			state "off", label:'relay 8 ${name}', action:"relay8on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
+			state "on", label:'relay 8 ${name}', action:"relay8off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		main "status"
-		details(["status", "alloff", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8"])
+		details(["status", "reset", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8"])
 	}
 }
 

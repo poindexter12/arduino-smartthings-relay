@@ -38,7 +38,7 @@ void setup() {
     pinMode(relayPins[i], OUTPUT);
   }
   // turn all the relays off
-  allOff();
+  reset();
 }
 
 void processMessage(String message) {
