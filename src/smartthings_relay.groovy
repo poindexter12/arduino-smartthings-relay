@@ -44,8 +44,9 @@ metadata {
 			state "none", label: "all off", action:"alloff", icon:"st.switches.switch.off", backgroundColor:"#ffffff"
 		}
 		standardTile("relay1", "device.relay1", inactiveLabel: true, decoration: "flat") {
-			state "off", label:'relay 1 ${name}', action:"relay1on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'relay 1 ${name}', action:"relay1off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+            state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "off", label:'relay 1 ${name}', action:"relay1on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
+			state "on", label:'relay 1 ${name}', action:"relay1off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay2", "device.relay2", inactiveLabel: false, decoration: "flat") {
 			state "off", label:'relay 2 ${name}', action:"relay2on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
@@ -91,161 +92,128 @@ def parse(String description) {
 
 	name = value != "ping" ? name : null
 
-	def result = createEvent(name: name, value: value, displayed: true, isStateChange: true)
+	sendEvent(name: name, value: value, displayed: true)
 	log.debug result
-
+	setActivityState();
 	return null;
 }
 
 def relay1on(){
-	sendEvent(name: "relay1", value: "on", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "1 on").format()
 }
 
 def relay1off(){
-	sendEvent(name: "relay1", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "1 off").format()
 }
 
 def relay2on(){
-	sendEvent(name: "relay2", value: "on", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "2 on").format()
 }
 
 def relay2off(){
-	sendEvent(name: "relay2", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "2 off").format()
 }
 
 def relay3on(){
-	sendEvent(name: "relay3", value: "on", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "3 on").format()
 }
 
 def relay3off(){
-	sendEvent(name: "relay3", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "3 off").format()
 }
 
 def relay4on(){
-	sendEvent(name: "relay4", value: "on", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "4 on").format()
 }
 
 def relay4off(){
-	sendEvent(name: "relay4", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "4 off").format()
 }
 
 def relay5on(){
-	sendEvent(name: "relay5", value: "on", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "5 on").format()
 }
 
 def relay5off(){
-	sendEvent(name: "relay5", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "5 off").format()
 }
 
 def relay6on(){
-	sendEvent(name: "relay6", value: "on", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "6 on").format()
 }
 
 def relay6off(){
-	sendEvent(name: "relay6", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "6 off").format()
 }
 
 def relay7on(){
-	sendEvent(name: "relay7", value: "on", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "7 on").format()
 }
 
 def relay7off(){
-	sendEvent(name: "relay7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "7 off").format()
 }
 
 def relay8on(){
-	sendEvent(name: "relay8", value: "on", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "8 on").format()
 }
 
 def relay8off(){
-	sendEvent(name: "relay8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
 	zigbee.smartShield(text: "8 off").format()
 }
 
 def alloff(){
-	sendEvent(name: "relay1", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	sendEvent(name: "relay2", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	sendEvent(name: "relay3", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	sendEvent(name: "relay4", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	sendEvent(name: "relay5", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	sendEvent(name: "relay6", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	sendEvent(name: "relay7", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	sendEvent(name: "relay8", value: "off", displayed: true, isStateChange: true, isPhysical: true);
-	setActivityState();
+	sendEvent(name: "relay1", value: "off", displayed: true, isStateChange: true);
+	sendEvent(name: "relay2", value: "off", displayed: true, isStateChange: true);
+	sendEvent(name: "relay3", value: "off", displayed: true, isStateChange: true);
+	sendEvent(name: "relay4", value: "off", displayed: true, isStateChange: true);
+	sendEvent(name: "relay5", value: "off", displayed: true, isStateChange: true);
+	sendEvent(name: "relay6", value: "off", displayed: true, isStateChange: true);
+	sendEvent(name: "relay7", value: "off", displayed: true, isStateChange: true);
+	sendEvent(name: "relay8", value: "off", displayed: true, isStateChange: true);
 	zigbee.smartShield(text: "alloff").format()
 }
 
 def setActivityState(){
 	def relay1state = device.currentValue("relay1");
 	if (relay1state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
 		return;
 	}
 	def relay2state = device.currentValue("relay2");
 	if (relay2state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
 		return;
 	}
 	def relay3state = device.currentValue("relay3");
 	if (relay3state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
 		return;
 	}
 	def relay4state = device.currentValue("relay4");
 	if (relay4state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
 		return;
 	}
 	def relay5state = device.currentValue("relay5");
 	if (relay5state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
 		return;
 	}
 	def relay6state = device.currentValue("relay6");
 	if (relay6state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
 		return;
 	}
 	def relay7state = device.currentValue("relay7");
 	if (relay7state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
 		return;
 	}
 	def relay8state = device.currentValue("relay8");
 	if (relay8state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true, isPhysical: false);
+		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
 		return;
 	}
-	sendEvent(name: "status", value: "inactive", displayed: true, isStateChange: true, isPhysical: false);
+	sendEvent(name: "status", value: "inactive", displayed: true, isStateChange: true);
 }
