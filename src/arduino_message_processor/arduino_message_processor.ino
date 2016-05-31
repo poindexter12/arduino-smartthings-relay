@@ -53,6 +53,7 @@ void processMessage(String message) {
   // look for all off first
   if (message == "alloff"){
     allOff();
+    return;
   }
   // declare variables for message
   String relay;
