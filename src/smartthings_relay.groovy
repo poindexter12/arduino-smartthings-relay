@@ -3,6 +3,7 @@ metadata {
 		capability "Actuator"
 		capability "Switch"
 
+		attribute "status", "string"
 		attribute "relay1", "string"
 		attribute "relay2", "string"
 		attribute "relay3", "string"
@@ -12,7 +13,7 @@ metadata {
 		attribute "relay7", "string"
 		attribute "relay8", "string"
 
-		command "alloff"
+		command "allrelaysoff"
 		command "relay1on"
 		command "relay1off"
 		command "relay2on"
@@ -41,40 +42,48 @@ metadata {
 			state "active", label:' ${name} ', icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
 		standardTile("alloff", "device.alloff", decoration: "flat") {
-			state "none", label: "all off", action:"alloff", icon:"st.switches.switch.off", backgroundColor:"#ffffff"
+			state "done", label: "all off", action:"allrelaysoff", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
 		}
 		standardTile("relay1", "device.relay1", inactiveLabel: true, decoration: "flat") {
-            state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
 			state "off", label:'relay 1 ${name}', action:"relay1on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
 			state "on", label:'relay 1 ${name}', action:"relay1off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay2", "device.relay2", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 2 ${name}', action:"relay2on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'relay 2 ${name}', action:"relay2off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "off", label:'relay 2 ${name}', action:"relay2on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
+			state "on", label:'relay 2 ${name}', action:"relay2off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay3", "device.relay3", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 3 ${name}', action:"relay3on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'relay 3 ${name}', action:"relay3off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "off", label:'relay 3 ${name}', action:"relay3on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
+			state "on", label:'relay 3 ${name}', action:"relay3off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay4", "device.relay4", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 4 ${name}', action:"relay4on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'relay 4 ${name}', action:"relay4off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "off", label:'relay 4 ${name}', action:"relay4on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
+			state "on", label:'relay 4 ${name}', action:"relay4off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay5", "device.relay5", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 5 ${name}', action:"relay5on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'relay 5 ${name}', action:"relay5off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "off", label:'relay 5 ${name}', action:"relay5on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
+			state "on", label:'relay 5 ${name}', action:"relay5off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay6", "device.relay6", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 6 ${name}', action:"relay6on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'relay 6 ${name}', action:"relay6off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "off", label:'relay 6 ${name}', action:"relay6on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
+			state "on", label:'relay 6 ${name}', action:"relay6off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay7", "device.relay7", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 7 ${name}', action:"relay7on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'relay 7 ${name}', action:"relay7off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "off", label:'relay 7 ${name}', action:"relay7on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
+			state "on", label:'relay 7 ${name}', action:"relay7off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		standardTile("relay8", "device.relay8", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 8 ${name}', action:"relay8on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
-			state "on", label:'relay 8 ${name}', action:"relay8off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
+			state "changing", label:'${name}', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
+			state "off", label:'relay 8 ${name}', action:"relay8on", icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff", nextState:"changing"
+			state "on", label:'relay 8 ${name}', action:"relay8off", icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821", nextState:"changing"
 		}
 		main "status"
 		details(["status", "alloff", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8"])
@@ -94,7 +103,7 @@ def parse(String description) {
 
 	sendEvent(name: name, value: value, displayed: true)
 	log.debug result
-	setActivityState();
+	setStatus();
 	return null;
 }
 
@@ -162,7 +171,7 @@ def relay8off(){
 	zigbee.smartShield(text: "8 off").format()
 }
 
-def alloff(){
+def allrelaysoff(){
 	sendEvent(name: "relay1", value: "off", displayed: true, isStateChange: true);
 	sendEvent(name: "relay2", value: "off", displayed: true, isStateChange: true);
 	sendEvent(name: "relay3", value: "off", displayed: true, isStateChange: true);
@@ -174,7 +183,7 @@ def alloff(){
 	zigbee.smartShield(text: "alloff").format()
 }
 
-def setActivityState(){
+def setStatus(){
 	def relay1state = device.currentValue("relay1");
 	if (relay1state == "on"){
 		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);

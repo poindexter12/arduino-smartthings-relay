@@ -75,6 +75,9 @@ void allOff(){
   }
   // set to blue to start
   smartthing.shieldSetLED(0, 0, 1);
+  // signal the alloff is done to smartthings
+  String message = "alloff done";
+  smartthing.send(message);
 }
 
 
