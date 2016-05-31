@@ -10,16 +10,10 @@
 
 #define PIN_RELAY1        4
 #define PIN_RELAY2        5
-#define PIN_RELAY3        7
-#define PIN_RELAY4        8
-#define PIN_RELAY5        9
-#define PIN_RELAY6        10
-#define PIN_RELAY7        11
-#define PIN_RELAY8        12
 
-#define MAX_RELAYS        8
+#define MAX_RELAYS        2
 
-byte relayPins[MAX_RELAYS] = { PIN_RELAY1, PIN_RELAY2, PIN_RELAY3, PIN_RELAY4, PIN_RELAY5, PIN_RELAY6, PIN_RELAY7, PIN_RELAY8 };
+byte relayPins[MAX_RELAYS] = { PIN_RELAY1, PIN_RELAY2 };
 
 SmartThingsCallout_t messageCallout;    // call out function forward decalaration
 SmartThings smartthing(PIN_THING_RX, PIN_THING_TX, messageCallout);  // constructor

@@ -1,5 +1,5 @@
 metadata {
-	definition (name: "8 Channel Relay", namespace: "poindexter12", author: "Joe Seymour") {
+	definition (name: "2 Channel Relay", namespace: "poindexter12", author: "Joe Seymour") {
 		capability "Actuator"
 		capability "Relay Switch"
 
@@ -7,30 +7,12 @@ metadata {
 		attribute "reset", "string"
 		attribute "relay1", "string"
 		attribute "relay2", "string"
-		attribute "relay3", "string"
-		attribute "relay4", "string"
-		attribute "relay5", "string"
-		attribute "relay6", "string"
-		attribute "relay7", "string"
-		attribute "relay8", "string"
 
 		command "reseteverything"
 		command "relay1on"
 		command "relay1off"
 		command "relay2on"
 		command "relay2off"
-		command "relay3on"
-		command "relay3off"
-		command "relay4on"
-		command "relay4off"
-		command "relay5on"
-		command "relay5off"
-		command "relay6on"
-		command "relay6off"
-		command "relay7on"
-		command "relay7off"
-		command "relay8on"
-		command "relay8off"
 	}
 
 	// simulator metadata
@@ -56,38 +38,8 @@ metadata {
 			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
 			state "on", label:'relay 2 ${name}', action:"relay2off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
-		standardTile("relay3", "device.relay3", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 3 ${name}', action:"relay3on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
-			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
-			state "on", label:'relay 3 ${name}', action:"relay3off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
-		}
-		standardTile("relay4", "device.relay4", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 4 ${name}', action:"relay4on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
-			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
-			state "on", label:'relay 4 ${name}', action:"relay4off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
-		}
-		standardTile("relay5", "device.relay5", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 5 ${name}', action:"relay5on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
-			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
-			state "on", label:'relay 5 ${name}', action:"relay5off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
-		}
-		standardTile("relay6", "device.relay6", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 6 ${name}', action:"relay6on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
-			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
-			state "on", label:'relay 6 ${name}', action:"relay6off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
-		}
-		standardTile("relay7", "device.relay7", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 7 ${name}', action:"relay7on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
-			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
-			state "on", label:'relay 7 ${name}', action:"relay7off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
-		}
-		standardTile("relay8", "device.relay8", inactiveLabel: false, decoration: "flat") {
-			state "off", label:'relay 8 ${name}', action:"relay8on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"changing"
-			state "changing", label:'changing...', icon:"st.Health & Wellness.health7", backgroundColor:"#a9a9a9"
-			state "on", label:'relay 8 ${name}', action:"relay8off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
-		}
 		main "status"
-		details(["status", "reset", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8"])
+		details(["status", "relay1", "relay2", "reset"])
 	}
 }
 
@@ -131,64 +83,10 @@ def relay2off(){
 	zigbee.smartShield(text: "2 off").format()
 }
 
-def relay3on(){
-	zigbee.smartShield(text: "3 on").format()
-}
-
-def relay3off(){
-	zigbee.smartShield(text: "3 off").format()
-}
-
-def relay4on(){
-	zigbee.smartShield(text: "4 on").format()
-}
-
-def relay4off(){
-	zigbee.smartShield(text: "4 off").format()
-}
-
-def relay5on(){
-	zigbee.smartShield(text: "5 on").format()
-}
-
-def relay5off(){
-	zigbee.smartShield(text: "5 off").format()
-}
-
-def relay6on(){
-	zigbee.smartShield(text: "6 on").format()
-}
-
-def relay6off(){
-	zigbee.smartShield(text: "6 off").format()
-}
-
-def relay7on(){
-	zigbee.smartShield(text: "7 on").format()
-}
-
-def relay7off(){
-	zigbee.smartShield(text: "7 off").format()
-}
-
-def relay8on(){
-	zigbee.smartShield(text: "8 on").format()
-}
-
-def relay8off(){
-	zigbee.smartShield(text: "8 off").format()
-}
-
 def reseteverything(){
 	// turn off all the relay states in the app before we reset
 	sendEvent(name: "relay1", value: "off", displayed: true, isStateChange: true);
 	sendEvent(name: "relay2", value: "off", displayed: true, isStateChange: true);
-	sendEvent(name: "relay3", value: "off", displayed: true, isStateChange: true);
-	sendEvent(name: "relay4", value: "off", displayed: true, isStateChange: true);
-	sendEvent(name: "relay5", value: "off", displayed: true, isStateChange: true);
-	sendEvent(name: "relay6", value: "off", displayed: true, isStateChange: true);
-	sendEvent(name: "relay7", value: "off", displayed: true, isStateChange: true);
-	sendEvent(name: "relay8", value: "off", displayed: true, isStateChange: true);
 	zigbee.smartShield(text: "reset").format()
 }
 
@@ -199,11 +97,5 @@ def setStatus(){
 def isActive(){
 	if (device.currentValue("relay1") == "on") return true;
 	if (device.currentValue("relay2") == "on") return true;
-	if (device.currentValue("relay3") == "on") return true;
-	if (device.currentValue("relay4") == "on") return true;
-	if (device.currentValue("relay5") == "on") return true;
-	if (device.currentValue("relay6") == "on") return true;
-	if (device.currentValue("relay7") == "on") return true;
-	if (device.currentValue("relay8") == "on") return true;
 	return false;
 }
