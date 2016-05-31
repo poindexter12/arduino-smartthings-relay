@@ -51,8 +51,8 @@ void processMessage(String message) {
   // dump the message if we're debugging
   Serial.println(message);
   // look for all off first
-  if (message == "alloff"){
-    allOff();
+  if (message == "reset"){
+    reset();
     return;
   }
   // declare variables for message
@@ -67,18 +67,18 @@ void processMessage(String message) {
   setRelayState(relay, state);
 }
 
-void allOff(){
+void reset(){
   smartthing.shieldSetLED(1, 0, 0);
   // loop through relays
   for (int i = 0; i < MAX_RELAYS; i++) {
     // close relay
     digitalWrite(relayPins[i], relayOff);
   }
+  // signal the alloff is done to smartthings
+  String message = "reset done";
+  smartthing.send(message);
   // set to blue to start
   smartthing.shieldSetLED(0, 0, 1);
-  // signal the alloff is done to smartthings
-  String message = "alloff done";
-  smartthing.send(message);
 }
 
 

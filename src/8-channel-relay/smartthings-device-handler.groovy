@@ -1,9 +1,10 @@
 metadata {
 	definition (name: "8 Channel Relay", namespace: "poindexter12", author: "Joe Seymour") {
 		capability "Actuator"
-		capability "Switch"
+		capability "Relay Switch"
 
 		attribute "status", "string"
+		attribute "reset", "string"
 		attribute "relay1", "string"
 		attribute "relay2", "string"
 		attribute "relay3", "string"
@@ -13,7 +14,7 @@ metadata {
 		attribute "relay7", "string"
 		attribute "relay8", "string"
 
-		command "allrelaysoff"
+		command "reseteverything"
 		command "relay1on"
 		command "relay1off"
 		command "relay2on"
@@ -41,9 +42,9 @@ metadata {
 			state "inactive", label:' ${name} ', icon:"st.Outdoor.outdoor12", backgroundColor:"#ffffff"
 			state "active", label:' ${name} ', icon:"st.Outdoor.outdoor12", backgroundColor:"#79b821"
 		}
-		standardTile("alloff", "device.alloff", decoration: "flat") {
-			state "done", label: "all off", action:"allrelaysoff", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"working"
-			state "working", label:'turning off...', icon:"st.switches.switch.off", backgroundColor:"#a9a9a9"
+		standardTile("reset", "device.reset", decoration: "flat") {
+			state "done", label: "reset", action:"reseteverything", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"resetting"
+			state "resetting", label:'resetting...', action:"reseteverything", icon:"st.switches.switch.off", backgroundColor:"#a9a9a9"
 		}
 		standardTile("relay1", "device.relay1", inactiveLabel: true, decoration: "flat") {
 			state "changing", label:'changing...', icon:"st.Outdoor.outdoor12", backgroundColor:"#a9a9a9"
@@ -93,6 +94,7 @@ metadata {
 // Parse incoming device messages to generate events
 def parse(String description) {
 	def msg = zigbee.parse(description)?.text.trim()
+	// bounce empty messages
 	if (msg == null || msg == "") {
 		return;
 	}
@@ -104,10 +106,12 @@ def parse(String description) {
 
 	name = value != "ping" ? name : null
 
+	// create an event here instead of returning, issues with calling set status if not because of a know double cloud call issue
 	def result = createEvent(name: name, value: value, isStateChange: true, displayed: true)
 	log.debug result
 	sendEvent(result);
 	setStatus();
+
 	return null;
 }
 
@@ -175,7 +179,8 @@ def relay8off(){
 	zigbee.smartShield(text: "8 off").format()
 }
 
-def allrelaysoff(){
+def reseteverything(){
+	// turn off all the relay states in the app before we reset
 	sendEvent(name: "relay1", value: "off", displayed: true, isStateChange: true);
 	sendEvent(name: "relay2", value: "off", displayed: true, isStateChange: true);
 	sendEvent(name: "relay3", value: "off", displayed: true, isStateChange: true);
@@ -184,49 +189,21 @@ def allrelaysoff(){
 	sendEvent(name: "relay6", value: "off", displayed: true, isStateChange: true);
 	sendEvent(name: "relay7", value: "off", displayed: true, isStateChange: true);
 	sendEvent(name: "relay8", value: "off", displayed: true, isStateChange: true);
-	zigbee.smartShield(text: "alloff").format()
+	zigbee.smartShield(text: "reset").format()
 }
 
 def setStatus(){
-	def relay1state = device.currentValue("relay1");
-	if (relay1state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
-		return;
-	}
-	def relay2state = device.currentValue("relay2");
-	if (relay2state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
-		return;
-	}
-	def relay3state = device.currentValue("relay3");
-	if (relay3state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
-		return;
-	}
-	def relay4state = device.currentValue("relay4");
-	if (relay4state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
-		return;
-	}
-	def relay5state = device.currentValue("relay5");
-	if (relay5state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
-		return;
-	}
-	def relay6state = device.currentValue("relay6");
-	if (relay6state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
-		return;
-	}
-	def relay7state = device.currentValue("relay7");
-	if (relay7state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
-		return;
-	}
-	def relay8state = device.currentValue("relay8");
-	if (relay8state == "on"){
-		sendEvent(name: "status", value: "active", displayed: true, isStateChange: true);
-		return;
-	}
-	sendEvent(name: "status", value: "inactive", displayed: true, isStateChange: true);
+	sendEvent(name: "status", value: isActive() ? "active" : "inactive", displayed: true, isStateChange: true);
+}
+
+def isActive(){
+	if (device.currentValue("relay1") == "on") return true;
+	if (device.currentValue("relay2") == "on") return true;
+	if (device.currentValue("relay3") == "on") return true;
+	if (device.currentValue("relay4") == "on") return true;
+	if (device.currentValue("relay5") == "on") return true;
+	if (device.currentValue("relay6") == "on") return true;
+	if (device.currentValue("relay7") == "on") return true;
+	if (device.currentValue("relay8") == "on") return true;
+	return false;
 }
