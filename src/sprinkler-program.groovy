@@ -8,11 +8,14 @@ definition(
   iconX2Url: "http://cdn.device-icons.smartthings.com/Outdoor/outdoor12-icn@2x.png"
   )
   preferences {
-    page(name: "schedulePage", title: "Create An Irrigation Schedule", install: true, uninstall: true, nextPage: "settings") {
-      section("Preferences") {
-        input name: "name", title: "Schedule Name", required: true, multiple: false
+    page(name: "generalPage", title: "Create An Irrigation Schedule", install: true, uninstall: true, nextPage: "schedulePage") {
+      section {
+        label name: "name", title: "Schedule Name", required: true, multiple: false
         input name: "relay", type: "capability.relaySwitch", title: "Select a relay switch", require: true, multiple: false
         input name: "zipcode", type: "number", title: "Enter rain delay zip code", required: false
+      }
+      section{
+        input name: "days", type: "enum", title: "Choose days", required: true, multiple: true, metadata: [values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']]
         input name: "starttime", type: "time", title: "Enter a start time"
       }
       section{

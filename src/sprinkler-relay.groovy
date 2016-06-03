@@ -11,8 +11,8 @@ definition(
   preferences {
     page(name: "mainPage", title: "Set Relay Information", install: true, uninstall: true) {
       section("Zone Information") {
-        input name: "relayname", title: "Relay Name", required: true
-        input name: "relay", title: "Zone Relay", description: "Enter the zone relay number to activate", type: "number", range: "1...8", required: true
+        label name: "relayname", title: "Relay Name", required: true
+        input name: "relay", title: "Zone Relay", description: "Enter the zone relay number to activate", type: "number", required: true
         input name: "time", title: "Run Time", description: "Enter the number of minutes to run the relay", type: "number", required: true
       }
     }
