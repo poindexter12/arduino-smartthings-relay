@@ -83,36 +83,44 @@ def parse(String description) {
 	return null;
 }
 
+def relayon(relay){
+	zigbee.smartShield(text: "${relay} on").format()
+}
+
+def relayoff(relay){
+	zigbee.smartShield(text: "${relay} off").format()
+}
+
 def relay1on(){
-	zigbee.smartShield(text: "1 on").format()
+	relayon("1")
 }
 
 def relay1off(){
-	zigbee.smartShield(text: "1 off").format()
+	relayoff("1")
 }
 
 def relay2on(){
-	zigbee.smartShield(text: "2 on").format()
+	relayon("2")
 }
 
 def relay2off(){
-	zigbee.smartShield(text: "2 off").format()
+	relayoff("2")
 }
 
 def relay3on(){
-	zigbee.smartShield(text: "3 on").format()
+	relayon("3")
 }
 
 def relay3off(){
-	zigbee.smartShield(text: "3 off").format()
+	relayoff("3")
 }
 
 def relay4on(){
-	zigbee.smartShield(text: "4 on").format()
+	relayon("4")
 }
 
 def relay4off(){
-	zigbee.smartShield(text: "4 off").format()
+	relayoff("4")
 }
 
 def reseteverything(){

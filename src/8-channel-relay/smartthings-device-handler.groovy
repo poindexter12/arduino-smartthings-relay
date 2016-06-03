@@ -38,7 +38,7 @@ metadata {
 	}
 
 	tiles(scale: 1) {
-		standardTile("status", "device.status", width: 3, height: 1) {
+		standardTile("status", "device.status", width: 2, height: 1) {
 			state "inactive", label:' ${name} ', icon:"st.shields.shields.arduino", backgroundColor:"#ffffff"
 			state "active", label:' ${name} ', icon:"st.shields.shields.arduino", backgroundColor:"#79b821"
 		}
@@ -87,7 +87,7 @@ metadata {
 			state "on", label:'relay 8 ${name}', action:"relay8off", icon:"st.switches.switch.on", backgroundColor:"#79b821", nextState:"changing"
 		}
 		main "status"
-		details(["status", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8", "reset"])
+		details(["status", "reset", "relay1", "relay2", "relay3", "relay4", "relay5", "relay6", "relay7", "relay8"])
 	}
 }
 
@@ -115,68 +115,76 @@ def parse(String description) {
 	return null;
 }
 
+def relayon(relay){
+	zigbee.smartShield(text: "${relay} on").format()
+}
+
+def relayoff(relay){
+	zigbee.smartShield(text: "${relay} off").format()
+}
+
 def relay1on(){
-	zigbee.smartShield(text: "1 on").format()
+	relayon("1")
 }
 
 def relay1off(){
-	zigbee.smartShield(text: "1 off").format()
+	relayoff("1")
 }
 
 def relay2on(){
-	zigbee.smartShield(text: "2 on").format()
+	relayon("2")
 }
 
 def relay2off(){
-	zigbee.smartShield(text: "2 off").format()
+	relayoff("2")
 }
 
 def relay3on(){
-	zigbee.smartShield(text: "3 on").format()
+	relayon("3")
 }
 
 def relay3off(){
-	zigbee.smartShield(text: "3 off").format()
+	relayoff("3")
 }
 
 def relay4on(){
-	zigbee.smartShield(text: "4 on").format()
+	relayon("4")
 }
 
 def relay4off(){
-	zigbee.smartShield(text: "4 off").format()
+	relayoff("4")
 }
 
 def relay5on(){
-	zigbee.smartShield(text: "5 on").format()
+	relayon("5")
 }
 
 def relay5off(){
-	zigbee.smartShield(text: "5 off").format()
+	relayoff("5")
 }
 
 def relay6on(){
-	zigbee.smartShield(text: "6 on").format()
+	relayon("6")
 }
 
 def relay6off(){
-	zigbee.smartShield(text: "6 off").format()
+	relayoff("6")
 }
 
 def relay7on(){
-	zigbee.smartShield(text: "7 on").format()
+	relayon("7")
 }
 
 def relay7off(){
-	zigbee.smartShield(text: "7 off").format()
+	relayoff("7")
 }
 
 def relay8on(){
-	zigbee.smartShield(text: "8 on").format()
+	relayon("8")
 }
 
 def relay8off(){
-	zigbee.smartShield(text: "8 off").format()
+	relayoff("8")
 }
 
 def reseteverything(){
