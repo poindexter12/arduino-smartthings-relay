@@ -1,7 +1,7 @@
 metadata {
 	definition (name: "8 Channel Relay", namespace: "poindexter12", author: "Joe Seymour") {
 		capability "Actuator"
-		capability "Relay Switch"
+		capability "Switch"
 
 		attribute "status", "string"
 		attribute "reset", "string"
@@ -31,6 +31,8 @@ metadata {
 		command "relay7off"
 		command "relay8on"
 		command "relay8off"
+		command "relayon"
+		command "relayoff"
 	}
 
 	// simulator metadata
@@ -115,14 +117,6 @@ def parse(String description) {
 	return null;
 }
 
-def relayon(relay){
-	zigbee.smartShield(text: "${relay} on").format()
-}
-
-def relayoff(relay){
-	zigbee.smartShield(text: "${relay} off").format()
-}
-
 def relay1on(){
 	relayon("1")
 }
@@ -132,59 +126,67 @@ def relay1off(){
 }
 
 def relay2on(){
-	relayon("2")
+	zigbee.smartShield(text: "2 on").format()
 }
 
 def relay2off(){
-	relayoff("2")
+	zigbee.smartShield(text: "2 off").format()
 }
 
 def relay3on(){
-	relayon("3")
+	zigbee.smartShield(text: "3 on").format()
 }
 
 def relay3off(){
-	relayoff("3")
+	zigbee.smartShield(text: "3 off").format()
 }
 
 def relay4on(){
-	relayon("4")
+	zigbee.smartShield(text: "4 on").format()
 }
 
 def relay4off(){
-	relayoff("4")
+	zigbee.smartShield(text: "4 off").format()
 }
 
 def relay5on(){
-	relayon("5")
+	zigbee.smartShield(text: "5 on").format()
 }
 
 def relay5off(){
-	relayoff("5")
+	zigbee.smartShield(text: "5 off").format()
 }
 
 def relay6on(){
-	relayon("6")
+	zigbee.smartShield(text: "6 on").format()
 }
 
 def relay6off(){
-	relayoff("6")
+	zigbee.smartShield(text: "6 off").format()
 }
 
 def relay7on(){
-	relayon("7")
+	zigbee.smartShield(text: "7 on").format()
 }
 
 def relay7off(){
-	relayoff("7")
+	zigbee.smartShield(text: "7 off").format()
 }
 
 def relay8on(){
-	relayon("8")
+	zigbee.smartShield(text: "8 on").format()
 }
 
 def relay8off(){
-	relayoff("8")
+	zigbee.smartShield(text: "8 off").format()
+}
+
+def relayon(relay){
+	zigbee.smartShield(text: "${relay} on").format()
+}
+
+def relayoff(relay){
+	zigbee.smartShield(text: "${relay} off").format()
 }
 
 def reseteverything(){

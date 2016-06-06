@@ -19,6 +19,8 @@ metadata {
 		command "relay3off"
 		command "relay4on"
 		command "relay4off"
+		command "relayon"
+		command "relayoff"
 	}
 
 	// simulator metadata
@@ -121,6 +123,14 @@ def relay4on(){
 
 def relay4off(){
 	relayoff("4")
+}
+
+def relayon(relay){
+	zigbee.smartShield(text: "${relay} on").format()
+}
+
+def relayoff(relay){
+	zigbee.smartShield(text: "${relay} off").format()
 }
 
 def reseteverything(){
