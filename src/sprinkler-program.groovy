@@ -54,11 +54,14 @@ definition(
       return
     }
     // check for precipitation, return if too large
-    def recentPrecipitation = getPrecipitationInches();
-    if (recentPrecipitation > 0.5){
-      log.debug "too much precipitation, leaving"
-      changeWateringState("")
-      return
+    if (zipcode != null && zipcode != "")
+    {
+      def recentPrecipitation = getPrecipitationInches();
+      if (recentPrecipitation > 0.5){
+        log.debug "too much precipitation, leaving"
+        changeWateringState("")
+        return
+      }
     }
 
     // toggle state
@@ -130,15 +133,12 @@ definition(
     // rain yesterday
     def yesterdaysWeather = getWeatherFeature("yesterday", "$zipcode")
     def yesterdaysPrecipitation = floatOrZero(yesterdaysWeather.history.dailysummary.precipi.toArray()[0])
-    log.debug "Yesterday's precipitation for $zipcode: $yesterdaysPrecipitation inches"
     // rain today
     def todaysWeather = getWeatherFeature("conditions", "$zipcode")
     def todaysPrecipitation = floatOrZero(todaysWeather.current_observation.precip_today_in)
-    log.debug "Today's precipitation for $zipcode: $todaysPrecipitation inches"
     // forecast rain for today
     def forecastWeather = getWeatherFeature("forecast", "$zipcode")
     def forecastPrecipitation = floatOrZero(forecastWeather.forecast.simpleforecast.forecastday.qpf_allday.in.toArray()[0])
-    log.debug "Forecast precipitation for $zipcode: $forecastPrecipitation inches"
     // add them up
     def totalPrecipitation = yesterdaysPrecipitation + todaysPrecipitation + forecastPrecipitation;
     log.debug "Total precipitation for $zipcode: $totalPrecipitation inches"
