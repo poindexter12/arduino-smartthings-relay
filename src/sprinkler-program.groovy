@@ -15,11 +15,11 @@ definition(
         input name: "zipcode", type: "number", title: "Enter rain delay zip code", required: false
       }
       section{
-        input name: "days", type: "enum", title: "Choose days", required: true, multiple: false, metadata: [values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']]
-        input name: "starttime", type: "time", title: "Enter a start time"
+        input name: "days", type: "enum", title: "Choose days", required: true, multiple: true, metadata: [values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']]
+        input name: "starttime", type: "time", title: "Enter a start time", required: true
       }
       section{
-        app(name: "relays", appName: "Sprinkler Relay", namespace: "poindexter12", title: "Choose Relays", multiple: true)
+        app(name: "relays", appName: "Sprinkler Relay", namespace: "poindexter12", title: "Add Relay...", multiple: true)
       }
     }
   }
